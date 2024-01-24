@@ -25,8 +25,8 @@ public class Controller  {
 		RPCClientStopStub stopdisplay = new RPCClientStopStub(displayclient);
 		RPCClientStopStub stopsensor = new RPCClientStopStub(sensorclient);
 				
-		DisplayStub display = new DisplayStub(displayclient);
-		SensorStub sensor = new SensorStub(sensorclient);
+		 display = new DisplayStub(displayclient);
+		 sensor = new SensorStub(sensorclient);
 		
 		displayclient.connect();
 		sensorclient.connect();
