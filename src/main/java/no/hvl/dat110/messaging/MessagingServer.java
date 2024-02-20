@@ -29,15 +29,18 @@ public class MessagingServer {
 
 		MessageConnection connection = null;
 
-		Socket socket = null;
-		
+		// TODO - START
+
 		try {
-			socket = welcomeSocket.accept();
-		} catch (IOException e) {
-			throw new RunTimeException(e);
+			Socket socket = welcomeSocket.accept();
+			connection = new MessageConnection(socket);
+
+		} catch (Exception e) {
+			System.out.println(e.getStackTrace());
 		}
+		// TODO - END
 		
-		return new MessageConnection(socket);
+		return connection;
 
 	}
 

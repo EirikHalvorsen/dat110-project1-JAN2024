@@ -1,61 +1,144 @@
 package no.hvl.dat110.rpc;
 
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import no.hvl.dat110.TODO;
 
 public class RPCUtils {
-
-	// Encapsulate the rpcid and payload in a byte array according to the RPC
-	// message syntax / format
+	
 	public static byte[] encapsulate(byte rpcid, byte[] payload) {
-		return ByteBuffer.allocate(payload.length + 1).put(rpcid).flip().array();
+		
+		byte[] rpcmsg = null;
+		
+		// TODO - START
+		
+		// Encapsulate the rpcid and payload in a byte array according to the RPC message syntax / format
+
+		rpcmsg = new byte[payload.length+1];
+		rpcmsg[0] = rpcid;
+
+		System.arraycopy(payload, 0, rpcmsg, 1, payload.length);
+
+		// TODO - END
+		
+		return rpcmsg;
 	}
-
-	// Decapsulate the rpcid and payload in a byte array according to the RPC
-	// message syntax
+	
 	public static byte[] decapsulate(byte[] rpcmsg) {
-		return Arrays.copyOfRange(rpcmsg, 1, rpcmsg.length);
+		
+		byte[] payload = null;
+		
+		// TODO - START
+		
+		// Decapsulate the rpcid and payload in a byte array according to the RPC message syntax
+		
+		payload = new byte[rpcmsg.length-1];
 
+		for (int i = 1; i < rpcmsg.length; i++) {
+			payload[i-1] = rpcmsg[i];
+		}
+
+		// TODO - END
+		
+		return payload;
+		
 	}
 
 	// convert String to byte array
 	public static byte[] marshallString(String str) {
-		return str.getBytes(StandardCharsets.UTF_16LE);
+		
+		byte[] encoded = null;
+		
+		// TODO - START 
+		
+		encoded = str.getBytes();
+		// TODO - END
+		
+		return encoded;
 	}
 
 	// convert byte array to a String
 	public static String unmarshallString(byte[] data) {
-		return StandardCharsets.UTF_16LE.decode(ByteBuffer.wrap(data)).toString();
+		
+		String decoded = null; 
+		
+		// TODO - START 
+		
+		decoded = new String(data);
 
+		// TODO - END
+		
+		return decoded;
 	}
-
+	
 	public static byte[] marshallVoid() {
-		return new byte[1];
+		
+		byte[] encoded = null;
+		
+		// TODO - START 
+		
+		encoded = new byte[0];
 
+		// TODO - END
+		
+		return encoded;
+		
 	}
-
+	
 	public static void unmarshallVoid(byte[] data) {
+		
+		// TODO
+
+		// uh
 	}
 
 	// convert boolean to a byte array representation
 	public static byte[] marshallBoolean(boolean b) {
-		return new byte[] { b ? (byte) 1 : (byte) 0 };
+		
+		byte[] encoded = new byte[1];
+				
+		if (b) {
+			encoded[0] = 1;
+		} else
+		{
+			encoded[0] = 0;
+		}
+		
+		return encoded;
 	}
 
 	// convert byte array to a boolean representation
 	public static boolean unmarshallBoolean(byte[] data) {
+		
 		return (data[0] > 0);
+		
 	}
 
 	// integer to byte array representation
 	public static byte[] marshallInteger(int x) {
-		return ByteBuffer.allocate(4).putInt(x).array();
-	}
+		
+		byte[] encoded = null;
+		
+		// TODO - START
 
+		encoded = ByteBuffer.allocate(4).putInt(x).array();
+
+		// TODO - END
+		
+		return encoded;
+	}
+	
 	// byte array representation to integer
 	public static int unmarshallInteger(byte[] data) {
-		return ByteBuffer.wrap(data).getInt();
+		
+		int decoded = 0;
+		
+		// TODO - START 
+		
+		decoded = ByteBuffer.wrap(data).getInt();
+		// TODO - END
+		
+		return decoded;
+		
 	}
 }
